@@ -5,7 +5,9 @@ technology:
 minDynatraceVersion: 1.199
 
 gcp:
-- service: cloudsql_database
+- featureSet: cloudsql/database
+  group: cloudsql_googleapis_com
+  service: cloudsql_database  
   dimensions:
   - value: resource.labels.project_id
     id: project_id
@@ -169,6 +171,95 @@ gcp:
       valueType: DOUBLE
       metricKind: GAUGE
     dimensions: []
+  - value: cloudsql.googleapis.com/database/network/connections
+    id: cloud.gcp.cloudsql_googleapis_com.database.network.connections
+    type: gauge
+    name: Cloud SQL Connections
+    unit: '1'
+    gcpOptions:
+      ingestDelay: 210s
+      samplePeriod: 60s
+      valueType: INT64
+      metricKind: GAUGE
+    dimensions: []
+  - value: cloudsql.googleapis.com/database/network/received_bytes_count
+    id: cloud.gcp.cloudsql_googleapis_com.database.network.received_bytes_count
+    type: count,delta
+    name: Received bytes
+    unit: By
+    gcpOptions:
+      ingestDelay: 210s
+      samplePeriod: 60s
+      valueType: INT64
+      metricKind: DELTA
+    dimensions: []
+  - value: cloudsql.googleapis.com/database/network/sent_bytes_count
+    id: cloud.gcp.cloudsql_googleapis_com.database.network.sent_bytes_count
+    type: count,delta
+    name: Sent bytes
+    unit: By
+    gcpOptions:
+      ingestDelay: 210s
+      samplePeriod: 60s
+      valueType: INT64
+      metricKind: DELTA
+    dimensions:
+    - value: metric.labels.destination
+  - value: cloudsql.googleapis.com/database/replication/replica_lag
+    id: cloud.gcp.cloudsql_googleapis_com.database.replication.replica_lag
+    type: gauge
+    name: Replica lag
+    unit: s
+    gcpOptions:
+      ingestDelay: 210s
+      samplePeriod: 60s
+      valueType: DOUBLE
+      metricKind: GAUGE
+    dimensions: []
+  - value: cloudsql.googleapis.com/database/state
+    id: cloud.gcp.cloudsql_googleapis_com.database.state
+    type: gauge
+    name: State
+    unit: ''
+    gcpOptions:
+      ingestDelay: 210s
+      samplePeriod: 60s
+      valueType: STRING
+      metricKind: GAUGE
+    dimensions: []
+  - value: cloudsql.googleapis.com/database/up
+    id: cloud.gcp.cloudsql_googleapis_com.database.up
+    type: gauge
+    name: Server up
+    unit: '1'
+    gcpOptions:
+      ingestDelay: 210s
+      samplePeriod: 60s
+      valueType: INT64
+      metricKind: GAUGE
+    dimensions: []
+  - value: cloudsql.googleapis.com/database/uptime
+    id: cloud.gcp.cloudsql_googleapis_com.database.uptime
+    type: count,delta
+    name: Uptime
+    unit: s
+    gcpOptions:
+      ingestDelay: 210s
+      samplePeriod: 60s
+      valueType: INT64
+      metricKind: DELTA
+    dimensions: []
+- featureSet: cloudsql/mysql
+  group: cloudsql.googleapis.com/database/mysql
+  service: cloudsql_database  
+  dimensions:
+  - value: resource.labels.project_id
+    id: project_id
+  - value: resource.labels.database_id
+    id: database_id
+  - value: resource.labels.region
+    id: region
+  metrics:
   - value: cloudsql.googleapis.com/database/mysql/innodb_buffer_pool_pages_dirty
     id: cloud.gcp.cloudsql_googleapis_com.database.mysql.innodb_buffer_pool_pages_dirty
     type: gauge
@@ -380,40 +471,17 @@ gcp:
       valueType: INT64
       metricKind: DELTA
     dimensions: []
-  - value: cloudsql.googleapis.com/database/network/connections
-    id: cloud.gcp.cloudsql_googleapis_com.database.network.connections
-    type: gauge
-    name: Cloud SQL Connections
-    unit: '1'
-    gcpOptions:
-      ingestDelay: 210s
-      samplePeriod: 60s
-      valueType: INT64
-      metricKind: GAUGE
-    dimensions: []
-  - value: cloudsql.googleapis.com/database/network/received_bytes_count
-    id: cloud.gcp.cloudsql_googleapis_com.database.network.received_bytes_count
-    type: count,delta
-    name: Received bytes
-    unit: By
-    gcpOptions:
-      ingestDelay: 210s
-      samplePeriod: 60s
-      valueType: INT64
-      metricKind: DELTA
-    dimensions: []
-  - value: cloudsql.googleapis.com/database/network/sent_bytes_count
-    id: cloud.gcp.cloudsql_googleapis_com.database.network.sent_bytes_count
-    type: count,delta
-    name: Sent bytes
-    unit: By
-    gcpOptions:
-      ingestDelay: 210s
-      samplePeriod: 60s
-      valueType: INT64
-      metricKind: DELTA
-    dimensions:
-    - value: metric.labels.destination
+- featureSet: cloudsql/postgresql
+  group: cloudsql.googleapis.com/database/postgresql
+  service: cloudsql_database  
+  dimensions:
+  - value: resource.labels.project_id
+    id: project_id
+  - value: resource.labels.database_id
+    id: database_id
+  - value: resource.labels.region
+    id: region
+  metrics:
   - value: cloudsql.googleapis.com/database/postgresql/num_backends
     id: cloud.gcp.cloudsql_googleapis_com.database.postgresql.num_backends
     type: gauge
@@ -451,50 +519,7 @@ gcp:
       metricKind: DELTA
     dimensions:
     - value: metric.labels.database
-    - value: metric.labels.transaction_type
-  - value: cloudsql.googleapis.com/database/replication/replica_lag
-    id: cloud.gcp.cloudsql_googleapis_com.database.replication.replica_lag
-    type: gauge
-    name: Replica lag
-    unit: s
-    gcpOptions:
-      ingestDelay: 210s
-      samplePeriod: 60s
-      valueType: DOUBLE
-      metricKind: GAUGE
-    dimensions: []
-  - value: cloudsql.googleapis.com/database/state
-    id: cloud.gcp.cloudsql_googleapis_com.database.state
-    type: gauge
-    name: State
-    unit: ''
-    gcpOptions:
-      ingestDelay: 210s
-      samplePeriod: 60s
-      valueType: STRING
-      metricKind: GAUGE
-    dimensions: []
-  - value: cloudsql.googleapis.com/database/up
-    id: cloud.gcp.cloudsql_googleapis_com.database.up
-    type: gauge
-    name: Server up
-    unit: '1'
-    gcpOptions:
-      ingestDelay: 210s
-      samplePeriod: 60s
-      valueType: INT64
-      metricKind: GAUGE
-    dimensions: []
-  - value: cloudsql.googleapis.com/database/uptime
-    id: cloud.gcp.cloudsql_googleapis_com.database.uptime
-    type: count,delta
-    name: Uptime
-    unit: s
-    gcpOptions:
-      ingestDelay: 210s
-      samplePeriod: 60s
-      valueType: INT64
-      metricKind: DELTA
-    dimensions: []
+    - value: metric.labels.transaction_type  
+
 dashboards:
   - dashboard: "dashboards/cloudsql_database.json"

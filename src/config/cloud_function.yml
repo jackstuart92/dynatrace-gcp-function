@@ -4,8 +4,11 @@ version: 0.0.1
 technology:
   name: Google Cloud Function
 minDynatraceVersion: 1.199
+
 gcp:
-- service: cloud_function
+- featureSet: cloud_function
+  service: cloud_function
+  group: cloudfunctions.googleapis.com
   dimensions:
   - value: resource.labels.project_id
     id: project_id
@@ -79,6 +82,7 @@ gcp:
     dimensions:
     - value: metric.labels.memory
     - value: metric.labels.trigger_type
+
 alerting:
   - name: "Function failures"
     description: "Cloud function failures occured"
@@ -100,5 +104,6 @@ alerting:
       violatingSamples: 3
       threshold: 0
       unit: UNSPECIFIED
+
 dashboards:
   - dashboard: "dashboards/cloud_function.json"

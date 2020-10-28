@@ -4,7 +4,9 @@ technology:
   name: Google Cloud Pub/Sub
 minDynatraceVersion: 1.199
 gcp:
-- service: pubsub_snapshot
+- featureSet: pubsub_snapshot
+  group: pubsub.googleapis.com/snapshot
+  service: pubsub_snapshot
   dimensions:
   - value: resource.labels.project_id
     id: project_id
@@ -93,7 +95,9 @@ gcp:
       metricKind: GAUGE
     dimensions:
     - value: metric.labels.region
-- service: pubsub_subscription
+- featureSet: pubsub_subscription 
+  group: pubsub.googleapis.com/subscription
+  service: pubsub_subscription
   dimensions:
   - value: resource.labels.project_id
     id: project_id
@@ -512,7 +516,9 @@ gcp:
       metricKind: GAUGE
     dimensions:
     - value: metric.labels.region
-- service: pubsub_topic
+- featureSet: pubsub_topic 
+  group: pubsub.googleapis.com/topic
+  service: pubsub_topic
   dimensions:
   - value: resource.labels.project_id
     id: project_id
@@ -653,7 +659,9 @@ gcp:
       metricKind: GAUGE
     dimensions:
     - value: metric.labels.region
-- service: pubsublite_topic_partition
+- featureSet: pubsublite_topic
+  group: pubsublite.googleapis.com/topic
+  service: pubsublite_topic_partition
   dimensions:
   - value: resource.labels.project_id
     id: project_id

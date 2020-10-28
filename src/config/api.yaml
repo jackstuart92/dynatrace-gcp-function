@@ -4,8 +4,11 @@ version: 0.0.1
 technology:
   name: Google Cloud APIs
 minDynatraceVersion: 1.199
+
 gcp:
-- service: api
+- featureSet: api
+  group: serviceruntime.googleapis.com
+  service: api
   dimensions:
   - value: resource.labels.project_id
     id: project_id
@@ -88,5 +91,6 @@ gcp:
       valueType: DISTRIBUTION
       metricKind: DELTA
     dimensions: []
+
 dashboards:
   - dashboard: "dashboards/api.json"

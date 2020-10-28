@@ -3,8 +3,11 @@ version: 0.0.1
 technology:
   name: Google Cloud Filestore
 minDynatraceVersion: 1.199
+
 gcp:
-- service: filestore_instance
+- featureSet: filestore
+  group: file.googleapis.com/nfs/server
+  service: filestore_instance
   dimensions:
     - value: resource.labels.project_id
       id: project_id
@@ -182,5 +185,6 @@ gcp:
       dimensions:
         - value: metric.labels.name
         - value: metric.labels.version
+
 dashboards:
   - dashboard: "dashboards/filestore_instance.json"

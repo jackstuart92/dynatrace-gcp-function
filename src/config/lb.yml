@@ -4,7 +4,9 @@ technology:
   name: Google Cloud Load Balancing
 minDynatraceVersion: 1.199
 gcp:
-- service: https_lb_rule
+- featureSet: https_lb
+  group: loadbalancing.googleapis.com/https
+  service: https_lb_rule
   dimensions:
   - value: resource.labels.project_id
     id: project_id
@@ -174,7 +176,9 @@ gcp:
     - value: metric.labels.proxy_continent
     - value: metric.labels.cache_result
     - value: metric.labels.client_country
-- service: internal_http_lb_rule
+- featureSet: internal_http_lb
+  group: loadbalancing.googleapis.com/https/internal
+  service: internal_http_lb_rule
   dimensions:
   - value: resource.labels.project_id
     id: project_id
@@ -278,7 +282,9 @@ gcp:
     - value: metric.labels.response_code
     - value: metric.labels.response_code_class
     - value: metric.labels.cache_result
-- service: internal_tcp_lb_rule
+- featureSet: internal_tcp_lb
+  group: loadbalancing.googleapis.com/l3/internal
+  service: internal_tcp_lb_rule
   dimensions:
   - value: resource.labels.project_id
     id: project_id
@@ -375,7 +381,9 @@ gcp:
     - value: metric.labels.client_network
     - value: metric.labels.client_subnetwork
     - value: metric.labels.client_zone
-- service: internal_udp_lb_rule
+- featureSet: internal_udp_lb
+  group: loadbalancing.googleapis.com/l3/internal
+  service: internal_udp_lb_rule
   dimensions:
   - value: resource.labels.project_id
     id: project_id
@@ -458,7 +466,9 @@ gcp:
     - value: metric.labels.client_network
     - value: metric.labels.client_subnetwork
     - value: metric.labels.client_zone
-- service: tcp_lb_rule
+- featureSet: tcp_lb
+  group: loadbalancing.googleapis.com/l3/external
+  service: tcp_lb_rule
   dimensions:
   - value: resource.labels.project_id
     id: project_id
@@ -556,7 +566,9 @@ gcp:
     dimensions:
     - value: metric.labels.client_continent
     - value: metric.labels.client_country
-- service: udp_lb_rule
+- featureSet: udp_lb
+  group: loadbalancing.googleapis.com/l3/external
+  service: udp_lb_rule
   dimensions:
   - value: resource.labels.project_id
     id: project_id

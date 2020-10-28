@@ -4,7 +4,9 @@ technology:
   name: Google Cloud Storage
 minDynatraceVersion: 1.199
 gcp:
-- service: gcs_bucket
+- featureSet: gcs_bucket
+  group: firebasestorage.googleapis.com
+  service: gcs_bucket
   dimensions:
   - value: resource.labels.project_id
     id: project_id
@@ -27,6 +29,17 @@ gcp:
     - value: metric.labels.request_method
     - value: metric.labels.ruleset_label
     - value: metric.labels.result
+- featureSet: gcs_bucket
+  group: storage.googleapis.com
+  service: gcs_bucket
+  dimensions:
+  - value: resource.labels.project_id
+    id: project_id
+  - value: resource.labels.bucket_name
+    id: bucket_name
+  - value: resource.labels.location
+    id: location
+  metrics:    
   - value: storage.googleapis.com/api/request_count
     id: cloud.gcp.storage_googleapis_com.api.request_count
     type: count,delta
