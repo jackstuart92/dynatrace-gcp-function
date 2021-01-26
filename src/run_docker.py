@@ -50,8 +50,8 @@ async def initial_check():
     await session.close()
 
 async def try_configure_dynatrace():
-    trust_env = "TRUST_ENV" in os.environ and os.environ["TRUST_ENV"].upper() == "TRUE"
-    async with aiohttp.ClientSession(trust_env=trust_env) as session:
+    trust_env_proxy = "TRUST_ENV_PROXY" in os.environ and os.environ["TRUST_ENV_PROXY"].upper() == "TRUE"
+    async with aiohttp.ClientSession(trust_env=trust_env_proxy) as session:
         dashboards_result = await ConfigureDynatrace(session, logging_context)
 
 

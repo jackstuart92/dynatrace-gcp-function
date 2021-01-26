@@ -24,7 +24,7 @@ data:
   # REQUIRES serviceusage.services.use Permission granted for Service Account!
   SERVICE_USAGE_BOOKING: "source"
   # support for connection with Dynatrace via proxy, if true proxies information are getting from HTTP_PROXY / HTTPS_PROXY environment variables
-  TRUST_ENV: "false"
+  TRUST_ENV_PROXY: "false"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -72,11 +72,11 @@ spec:
             configMapKeyRef:
               name: dynatrace-gcp-function-config
               key: SERVICE_USAGE_BOOKING
-        - name: TRUST_ENV
+        - name: TRUST_ENV_PROXY
             valueFrom:
               configMapKeyRef:
                 name: dynatrace-gcp-function-config
-                key: TRUST_ENV
+                key: TRUST_ENV_PROXY
         - name: DYNATRACE_ACCESS_KEY_SECRET_NAME
           value: DYNATRACE_ACCESS_KEY
         - name: DYNATRACE_URL_SECRET_NAME
