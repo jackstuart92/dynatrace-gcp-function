@@ -23,6 +23,8 @@ data:
   # if set to destination: monitoring API calls are booked towards project which is monitored
   # REQUIRES serviceusage.services.use Permission granted for Service Account!
   SERVICE_USAGE_BOOKING: "source"
+  # support for connection with Dynatrace via proxy, if true proxies information are getting from HTTP_PROXY / HTTPS_PROXY environment variables
+  TRUST_ENV: "false"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -70,6 +72,11 @@ spec:
             configMapKeyRef:
               name: dynatrace-gcp-function-config
               key: SERVICE_USAGE_BOOKING
+        - name: TRUST_ENV
+            valueFrom:
+              configMapKeyRef:
+                name: dynatrace-gcp-function-config
+                key: TRUST_ENV
         - name: DYNATRACE_ACCESS_KEY_SECRET_NAME
           value: DYNATRACE_ACCESS_KEY
         - name: DYNATRACE_URL_SECRET_NAME

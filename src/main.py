@@ -79,7 +79,8 @@ async def handle_event(event: Dict, event_context, project_id_owner: Optional[st
         selected_services = selected_services_string.split(",") if selected_services_string else []
     services = load_supported_services(context, selected_services)
 
-    async with aiohttp.ClientSession() as session:
+    trust_env = "TRUST_ENV" in os.environ and os.environ["TRUST_ENV"].upper() == "TRUE"
+    async with aiohttp.ClientSession(trust_env=trust_env) as session:
         setup_start_time = time.time()
         token = await create_token(context, session)
 

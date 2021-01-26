@@ -26,3 +26,4 @@ Worker function execution can be tweaked with environment variables. In Google F
 | METRIC_INGEST_BATCH_SIZE | size of MINT ingest batch sent to Dynatrace cluster | 1000 |
 | REQUIRE_VALID_CERTIFICATE | determines whether worker will verify SSL certificate of Dynatrace endpoint | True |
 | SERVICE_USAGE_BOOKING | `source` if API calls should use default billing mechanism, `destination` if they should be billed per project | `source` |
+| TRUST_ENV | boolean value, support for connection with Dynatrace via proxy, if true proxies information is getting from HTTP_PROXY / HTTPS_PROXY environment variables |

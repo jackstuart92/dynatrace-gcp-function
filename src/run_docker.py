@@ -18,10 +18,10 @@ from typing import Optional, List
 import aiohttp
 from aiohttp import web
 
+from lib.configure_dynatrace import ConfigureDynatrace
 from lib.context import LoggingContext
 from lib.credentials import create_token
 from lib.fast_check import FastCheck
-from lib.configure_dynatrace import ConfigureDynatrace
 from lib.instance_metadata import InstanceMetadata
 from main import async_dynatrace_gcp_extension
 
@@ -50,7 +50,8 @@ async def initial_check():
     await session.close()
 
 async def try_configure_dynatrace():
-    async with aiohttp.ClientSession() as session:
+    trust_env = "TRUST_ENV" in os.environ and os.environ["TRUST_ENV"].upper() == "TRUE"
+    async with aiohttp.ClientSession(trust_env=trust_env) as session:
         dashboards_result = await ConfigureDynatrace(session, logging_context)
 
 

@@ -39,6 +39,7 @@ readonly FUNCTION_GCP_SERVICES=$(yq r $FUNCTION_ACTIVATION_CONFIG 'activation.me
 readonly DASHBOARDS_TO_ACTIVATE=$(yq r -j -P $FUNCTION_ACTIVATION_CONFIG 'activation.metrics.services' | jq -r .[]) 
 readonly PRINT_METRIC_INGEST_INPUT=$(yq r $FUNCTION_ACTIVATION_CONFIG 'debug.printMetricIngestInput')
 readonly DEFAULT_GCP_FUNCTION_SIZE=$(yq r $FUNCTION_ACTIVATION_CONFIG 'googleCloud.common.cloudFunctionSize')
+readonly TRUST_ENV=$(yq r $FUNCTION_ACTIVATION_CONFIG 'googleCloud.common.trustEnv')
 
 
 if ! command -v gcloud &> /dev/null
