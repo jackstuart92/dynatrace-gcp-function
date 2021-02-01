@@ -32,8 +32,8 @@ async def scheduling_loop(project_ids: Optional[List[str]] = None):
         await asyncio.sleep(60)
 
 
-async def initial_check():
-    async with aiohttp.ClientSession() as session:
+async def initial_check(trust_env_proxy):
+    async with aiohttp.ClientSession(trust_env=trust_env_proxy) as session:
         token = await create_token(logging_context, session)
         if token:
             fast_check_result = await FastCheck(session, token, logging_context)
@@ -49,8 +49,7 @@ async def initial_check():
             logging_context.log(f'Monitoring disabled. Unable to acquire authorization token.')
     await session.close()
 
-async def try_configure_dynatrace():
-    trust_env_proxy = "TRUST_ENV_PROXY" in os.environ and os.environ["TRUST_ENV_PROXY"].upper() == "TRUE"
+async def try_configure_dynatrace(trust_env_proxy):
     async with aiohttp.ClientSession(trust_env=trust_env_proxy) as session:
         dashboards_result = await ConfigureDynatrace(session, logging_context)
 
@@ -101,8 +100,9 @@ runner = web.AppRunner(app)
 loop.run_until_complete(runner.setup())
 site = web.TCPSite(runner, '0.0.0.0', 8080)
 
-loop.run_until_complete(try_configure_dynatrace())
-loop.run_until_complete(initial_check())
+trust_env_proxy = "TRUST_ENV_PROXY" in os.environ and os.environ["TRUST_ENV_PROXY"].upper() == "TRUE"
+loop.run_until_complete(try_configure_dynatrace(trust_env_proxy))
+loop.run_until_complete(initial_check(trust_env_proxy))
 loop.run_until_complete(site.start())
 
 try:
