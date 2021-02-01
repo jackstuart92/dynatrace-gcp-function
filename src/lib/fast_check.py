@@ -1,8 +1,8 @@
 import asyncio
 import re
 from typing import NamedTuple, List, Optional
+from urllib.parse import urljoin
 
-from urllib.parse import urljoin, urlparse
 from aiohttp import ClientSession
 
 from lib.context import LoggingContext
@@ -81,7 +81,7 @@ class FastCheck:
 
             return await response.json()
         except Exception as e:
-            self.logging_context.log(f'Unable to get project: {project_id} services list. Error details: {e}')
+            self.logging_context.log(f'Unable to get project: {project_id} services list. Error details: reason is {type(e).__name__} {e}')
             return {}
 
     async def _check_services(self, project_id):
